@@ -69,3 +69,9 @@ As `global` breaks the web, many suggested to use e.g. `Global`; but the argumen
 > There was discussion of this, but it was thrown out because the pascal-cased names are supposed to be reserved for constructors and for namespaces. But when you think about the 99% use case for people, the "global reference" is always for namespacing reasons, and it is often referred to as the "global namespace". So to me it seems like an extremely relevant naming choice. This would preserve the greatest level of intent (since it's exactly the same word, just different capitalization) as the original name proposal. I think it may have been discarded too quickly.
 
 Here, `GlobalReference` is actually a namespace.
+
+##### Why the name `GlobalReference`?
+
+Because _reference_ describes exactly what would be actually exposed, and it's a widely used term.
+
+Also, the name is aligned with other proposals such as https://github.com/sebmarkbage/ecmascript-asset-references.
