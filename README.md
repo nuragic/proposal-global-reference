@@ -25,9 +25,6 @@ class Global {
 GlobalReference = Object.setPrototypeOf(new Global(), null);
 
 // tests
-console.assert(GlobalReference != window);
-console.assert(window.environment == null);
-console.assert(GlobalReference.hostEnvironment);
 console.assert(GlobalReference.globalThis === window);
 console.assert(GlobalReference instanceof Function === false);
 console.assert(GlobalReference instanceof Global === false);
@@ -62,9 +59,11 @@ _TL;DR;_
 
 See https://github.com/tc39/proposal-global/issues/33 for more info on this.
 
+Instead, by adding a new (writable/configurable) intrinsic `GlobalReference`, which is solely intended to expose the _global reference_, users (and specifically libraries like SES) will be able to overwrite the default implementation for e.g. sandboxing purposes.
+
 ##### How `GlobalReference` is different than `globalThis`?
 
-As `global` breaks the web, many suggested to use e.g. `Global`; but the argument against it is (quoting https://github.com/tc39/proposal-global/issues/32):
+Adding a new `global` variable would break the web, so many people suggested to use e.g. `Global`; but the argument against it is (quoting https://github.com/tc39/proposal-global/issues/32):
 
 > There was discussion of this, but it was thrown out because the pascal-cased names are supposed to be reserved for constructors and for namespaces. But when you think about the 99% use case for people, the "global reference" is always for namespacing reasons, and it is often referred to as the "global namespace". So to me it seems like an extremely relevant naming choice. This would preserve the greatest level of intent (since it's exactly the same word, just different capitalization) as the original name proposal. I think it may have been discarded too quickly.
 
@@ -75,3 +74,11 @@ Here, `GlobalReference` is actually a namespace.
 Because _reference_ describes exactly what would be actually exposed, and it's a widely used term.
 
 Also, the name is aligned with other proposals such as https://github.com/sebmarkbage/ecmascript-asset-references.
+
+##### Why you still have `globalThis` as property of `GlobalReference`?
+
+I intentionally left the name as in the current proposal just to expose the idea of moving it inside this new namespace, but obviously it may be renamed.
+
+##### Are you _sure_ that `GlobalReference` would not break the web?
+
+No. Who is sure? Only browsers know that right now, I guess. If you know a way to gather this info please open an issue explainging how do so. Thanks!
